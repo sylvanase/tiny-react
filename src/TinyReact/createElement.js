@@ -34,6 +34,6 @@ export default function createElement(type, props, ...children) {
 		type,
 		// React中可以通过props.children获取子元素，所以需要将子元素存储在props对象中
 		props: Object.assign({ children: childElements }, props),
-		children: childrenElements,
+		children: childElements,
 	}
 }
