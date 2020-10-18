@@ -2,6 +2,7 @@ import mountElement from './mountElement'
 import updateTextNode from './updateTextNode'
 import updateNodeElement from './updateNodeElement'
 import createDOMElement from './createDOMElement'
+import unmountNode from './unmountNode'
 
 export default function diff(virtualDOM, container, oldDOM) {
 	const oldVirtualDOM = oldDOM && oldDOM._virtualDOM
@@ -22,6 +23,20 @@ export default function diff(virtualDOM, container, oldDOM) {
 		virtualDOM.children.forEach((child, i) => {
 			diff(child, oldDOM, oldDOM.childNodes[i])
 		})
+
+		// 删除节点
+		// 获取旧接地那
+		let oldChildNodes = oldDOM.childNodes
+		if (oldChildNodes.length > virtualDOM.children.length) {
+			// 长度不一致，有节点需要删除
+			for (
+				let i = oldChildNodes.length - 1;
+				i > virtualDOM.children.length - 1;
+				i--
+			) {
+				unmountNode(oldChildNodes[i])
+			}
+		}
 	} else if (
 		virtualDOM.type !== oldVirtualDOM.type &&
 		typeof virtualDOM.type !== 'function'
