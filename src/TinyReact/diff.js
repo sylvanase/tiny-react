@@ -1,6 +1,7 @@
 import mountElement from './mountElement'
 import updateTextNode from './updateTextNode'
 import updateNodeElement from './updateNodeElement'
+import createDOMElement from './createDOMElement'
 
 export default function diff(virtualDOM, container, oldDOM) {
 	const oldVirtualDOM = oldDOM && oldDOM._virtualDOM
@@ -21,5 +22,14 @@ export default function diff(virtualDOM, container, oldDOM) {
 		virtualDOM.children.forEach((child, i) => {
 			diff(child, oldDOM, oldDOM.childNodes[i])
 		})
+	} else if (
+		virtualDOM.type !== oldVirtualDOM.type &&
+		typeof virtualDOM.type !== 'function'
+	) {
+		// 对比的两个节点类型不同，且不是组件类型
+		// 无需对比，直接用新 virtualDOM 对象生成 DOM 对象
+		const newElement = createDOMElement(virtualDOM)
+		// 然后进行替换
+		oldDOM.parentNode.replaceChild(newElement, oldDOM)
 	}
 }
