@@ -1,8 +1,9 @@
 import mountElement from './mountElement'
 import updateTextNode from './updateTextNode'
+import updateNodeElement from './updateNodeElement'
+
 export default function diff(virtualDOM, container, oldDOM) {
 	const oldVirtualDOM = oldDOM && oldDOM._virtualDOM
-	console.log(oldVirtualDOM, 'oldVirtualDOM')
 	// oldDOM是否存在
 	if (!oldDOM) {
 		mountElement(virtualDOM, container)
@@ -13,6 +14,7 @@ export default function diff(virtualDOM, container, oldDOM) {
 			updateTextNode(virtualDOM, oldVirtualDOM, oldDOM)
 		} else {
 			// 元素类型节点更新属性
+			updateNodeElement(oldDOM, virtualDOM, oldVirtualDOM)
 		}
 
 		// 对比子元素
