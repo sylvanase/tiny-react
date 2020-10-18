@@ -18,6 +18,30 @@ const virtualDOM = (
 		2, 3
 	</div>
 )
+
+const modifyDOM = (
+	<div className="container">
+		<h1>你好 Tiny React</h1>
+		<h2 data-test="test123">(编码必杀技)</h2>
+		<div>
+			嵌套1 <div>嵌套 1.1</div>
+		</div>
+		<h3>(观察: 这个将会被改变)</h3>
+		{2 == 1 && <div>如果2和1相等渲染当前内容</div>}
+		{2 == 2 && <div>2</div>}
+		<span>这是一段被修改过的内容</span>
+		<button onClick={() => alert('你好!!!!!')}>点击我</button>
+		<input type="text" value="13" />
+	</div>
+)
+
+TinyReact.render(virtualDOM, root)
+
+setTimeout(() => {
+	console.log(111)
+	TinyReact.render(modifyDOM, root)
+}, 2000)
+
 // 转换virtualDOM
 // TinyReact.render(virtualDOM, root)
 // console.log(virtualDOM)
@@ -28,18 +52,18 @@ const virtualDOM = (
 // }
 
 // 测试 Heart 中是函数组件的情况
-function Demo() {
-	return <div>Hello</div>
-}
+// function Demo() {
+// 	return <div>Hello</div>
+// }
 
-function Heart(props) {
-	return (
-		<div>
-			{props.title}
-			&hearts; <Demo />
-		</div>
-	)
-}
+// function Heart(props) {
+// 	return (
+// 		<div>
+// 			{props.title}
+// 			&hearts; <Demo />
+// 		</div>
+// 	)
+// }
 
 // TinyReact.render(<Heart title="Hello props" />, root)
 
@@ -78,4 +102,4 @@ class Alert extends TinyReact.Component {
 	}
 }
 
-TinyReact.render(<Alert name="name" age="18" />, root)
+// TinyReact.render(<Alert name="name" age="18" />, root)

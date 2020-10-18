@@ -11,6 +11,9 @@ export default function createDOMElement(virtualDOM) {
 		// 创建属性后添加节点
 		updateNodeElement(newElement, virtualDOM)
 	}
+
+	newElement._virtualDOM = virtualDOM
+
 	// 递归创建子节点
 	virtualDOM.children.forEach(child => {
 		mountElement(child, newElement)
