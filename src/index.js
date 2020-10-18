@@ -19,5 +19,63 @@ const virtualDOM = (
 	</div>
 )
 // 转换virtualDOM
-TinyReact.render(virtualDOM, root)
-console.log(virtualDOM)
+// TinyReact.render(virtualDOM, root)
+// console.log(virtualDOM)
+
+// 函数组件
+// function Heart() {
+// 	return <div>&hearts;</div>
+// }
+
+// 测试 Heart 中是函数组件的情况
+function Demo() {
+	return <div>Hello</div>
+}
+
+function Heart(props) {
+	return (
+		<div>
+			{props.title}
+			&hearts; <Demo />
+		</div>
+	)
+}
+
+// TinyReact.render(<Heart title="Hello props" />, root)
+
+class Alert extends TinyReact.Component {
+	constructor(props) {
+		super(props)
+		this.state = {
+			title: 'Default Title',
+		}
+		// this.handleClick = this.handleClick.bind(this)
+	}
+	// handleClick() {
+	//   this.setState({ title: "Changed Title" })
+	// }
+	// componentWillReceiveProps(nextProps) {
+	//   console.log("componentWillReceiveProps")
+	// }
+	// componentWillUpdate() {
+	//   console.log("componentWillUpdate")
+	// }
+	// componentDidUpdate() {
+	//   console.log("componentDidUpdate")
+	// }
+	render() {
+		return (
+			<div>
+				Class
+				{this.props.name}
+				{this.props.age}
+				{/* <div>
+          {this.state.title}
+          <button onClick={this.handleClick}>改变Title</button>
+        </div> */}
+			</div>
+		)
+	}
+}
+
+TinyReact.render(<Alert name="name" age="18" />, root)
