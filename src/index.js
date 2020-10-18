@@ -36,12 +36,12 @@ const modifyDOM = (
 	</div>
 )
 
-TinyReact.render(virtualDOM, root)
+// TinyReact.render(virtualDOM, root)
 
-setTimeout(() => {
-	console.log(111)
-	TinyReact.render(modifyDOM, root)
-}, 2000)
+// setTimeout(() => {
+// 	console.log(111)
+// 	TinyReact.render(modifyDOM, root)
+// }, 2000)
 
 // 转换virtualDOM
 // TinyReact.render(virtualDOM, root)
@@ -74,11 +74,11 @@ class Alert extends TinyReact.Component {
 		this.state = {
 			title: 'Default Title',
 		}
-		// this.handleClick = this.handleClick.bind(this)
+		this.handleClick = this.handleClick.bind(this)
 	}
-	// handleClick() {
-	//   this.setState({ title: "Changed Title" })
-	// }
+	handleClick() {
+		this.setState({ title: 'Changed Title' })
+	}
 	// componentWillReceiveProps(nextProps) {
 	//   console.log("componentWillReceiveProps")
 	// }
@@ -89,18 +89,19 @@ class Alert extends TinyReact.Component {
 	//   console.log("componentDidUpdate")
 	// }
 	render() {
+		console.log(this.state)
 		return (
 			<div>
 				Class
 				{this.props.name}
 				{this.props.age}
-				{/* <div>
-          {this.state.title}
-          <button onClick={this.handleClick}>改变Title</button>
-        </div> */}
+				<div>
+					{this.state.title}
+					<button onClick={this.handleClick}>改变Title</button>
+				</div>
 			</div>
 		)
 	}
 }
 
-// TinyReact.render(<Alert name="name" age="18" />, root)
+TinyReact.render(<Alert name="name" age={20} />, root)
