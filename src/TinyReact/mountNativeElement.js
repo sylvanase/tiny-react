@@ -1,8 +1,12 @@
 import createDOMElement from './createDOMElement'
+import unmountNode from './unmountNode'
 
-export default function mountNativeElement(virtualDOM, container) {
+export default function mountNativeElement(virtualDOM, container, oldDOM) {
 	let newElement = createDOMElement(virtualDOM)
-
+	// 判断旧dom是否存在，存在的话，删除
+	if (oldDOM) {
+		unmountNode(oldDOM)
+	}
 	// 将转换之后的DOM对象放置到页面中
 	container.appendChild(newElement)
 

@@ -3,9 +3,11 @@ import updateTextNode from './updateTextNode'
 import updateNodeElement from './updateNodeElement'
 import createDOMElement from './createDOMElement'
 import unmountNode from './unmountNode'
+import diffComponent from './diffComponent'
 
 export default function diff(virtualDOM, container, oldDOM) {
 	const oldVirtualDOM = oldDOM && oldDOM._virtualDOM
+	const oldComponent = oldVirtualDOM && oldVirtualDOM.component
 	// oldDOM是否存在
 	if (!oldDOM) {
 		mountElement(virtualDOM, container)
@@ -46,5 +48,7 @@ export default function diff(virtualDOM, container, oldDOM) {
 		const newElement = createDOMElement(virtualDOM)
 		// 然后进行替换
 		oldDOM.parentNode.replaceChild(newElement, oldDOM)
+	} else if (typeof virtualDOM.type === 'function') {
+		diffComponent(virtualDOM, oldComponent, oldDOM, container)
 	}
 }
