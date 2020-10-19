@@ -19,5 +19,10 @@ export default function createDOMElement(virtualDOM) {
 		mountElement(child, newElement)
 	})
 
+	// 存在ref方法
+	if (virtualDOM.props && virtualDOM.props.ref) {
+		virtualDOM.props.ref(newElement)
+	}
+
 	return newElement
 }
